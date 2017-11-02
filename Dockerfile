@@ -35,6 +35,9 @@ RUN pip3 install -U \
     pip \
     setuptools
 
+# Add indy user
+RUN useradd -ms /bin/bash -u $uid indy
+
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68DB5E88
 RUN echo "deb https://repo.sovrin.org/deb xenial $indy_stream" >> /etc/apt/sources.list
 
@@ -46,8 +49,6 @@ RUN apt-get update -y && apt-get install -y \
     libindy-crypto=${indy_crypto_ver} \
     vim
 
-# Add indy user
-RUN useradd -ms /bin/bash -u $uid indy
 USER indy
 WORKDIR /home/indy
 
@@ -70,3 +71,6 @@ WORKDIR /home/indy
 
 # Add our startup scripts
 ADD --chown=indy:indy ./scripts /home/indy/scripts
+
+# Add our python scripts
+ADD --chown=indy:indy ./connector /home/indy/von-connector

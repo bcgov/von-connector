@@ -1,4 +1,4 @@
-# Von Connector
+# VON Connector
 
 Verifiable Organization Network Connector
 
@@ -18,7 +18,7 @@ Move to the new directory:
 cd von-connector
 ```
 
-Now you can build the Dockerfile into an image which we will use to run containers (this process can take a few minutes):
+Now you can build the Dockerfile into an image which we will use to run containers (this process will take several minutes):
 
 ```bash
 ./manage build
@@ -30,7 +30,7 @@ Once the build process completes, you can test the build to make sure everything
 ./manage start_nodes
 ```
 
-Once the nodes are all running and have connected to each other, you can run the Indy client to test the connection:
+Once the nodes are all running and have connected to each other, you can run the Indy client to test the connection in a separate terminal window:
 
 ```bash
 ./manage start_client
@@ -91,3 +91,88 @@ Connected to test.
 ```
 
 If you see this, congratulations! Your nodes are running correctly and you have a connection to the network.
+
+## Running the VON Connector
+
+Start the Indy nodes:
+
+```bash
+./manage start_nodes
+```
+
+Once that completes, start the VON Connector in a separate terminal window:
+
+```bash
+./manage start_von_connector
+```
+
+It will first take a minute to bootstrap the environment and once that completes you should see something like this:
+
+```
+Opening pool...
+
+
+
+ INFO|command_executor              |                src/commands/mod.rs:71  | Worker thread started
+ INFO|indy::commands                |                src/commands/mod.rs:107 | PoolCommand command received
+ INFO|pool_command_executor         |               src/commands/pool.rs:54  | Create command received
+_indy_loop_callback: Function returned None
+ INFO|indy::commands                |                src/commands/mod.rs:107 | PoolCommand command received
+ INFO|pool_command_executor         |               src/commands/pool.rs:62  | Open command received
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "pi"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "pi"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "pi"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "pi"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:857 | RemoteNode::recv_msg Node1 po
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "{\"op\":\"LEDGER_STATUS\",\"txnSeqNo\":4,\"merkleRoot\":\"EzzssMLPWnemT3HVM8c5iWtgjNB5DD3ZwXJfhFJWugeg\",\"ledgerId\":0,\"ppSeqNo\":null,\"viewNo\":null}"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:857 | RemoteNode::recv_msg Node3 po
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "{\"op\":\"LEDGER_STATUS\",\"txnSeqNo\":4,\"merkleRoot\":\"EzzssMLPWnemT3HVM8c5iWtgjNB5DD3ZwXJfhFJWugeg\",\"ledgerId\":0,\"ppSeqNo\":null,\"viewNo\":null}"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:857 | RemoteNode::recv_msg Node1 {"ppSeqNo":null,"txnSeqNo":4,"op":"LEDGER_STATUS","ledgerId":0,"viewNo":null,"merkleRoot":"EzzssMLPWnemT3HVM8c5iWtgjNB5DD3ZwXJfhFJWugeg"}
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:857 | RemoteNode::recv_msg Node2 po
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "{\"op\":\"LEDGER_STATUS\",\"txnSeqNo\":4,\"merkleRoot\":\"EzzssMLPWnemT3HVM8c5iWtgjNB5DD3ZwXJfhFJWugeg\",\"ledgerId\":0,\"ppSeqNo\":null,\"viewNo\":null}"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:857 | RemoteNode::recv_msg Node4 po
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "{\"op\":\"LEDGER_STATUS\",\"txnSeqNo\":4,\"merkleRoot\":\"EzzssMLPWnemT3HVM8c5iWtgjNB5DD3ZwXJfhFJWugeg\",\"ledgerId\":0,\"ppSeqNo\":null,\"viewNo\":null}"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:857 | RemoteNode::recv_msg Node2 {"ppSeqNo":null,"viewNo":null,"merkleRoot":"EzzssMLPWnemT3HVM8c5iWtgjNB5DD3ZwXJfhFJWugeg","ledgerId":0,"txnSeqNo":4,"op":"LEDGER_STATUS"}
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:857 | RemoteNode::recv_msg Node3 {"ppSeqNo":null,"ledgerId":0,"merkleRoot":"EzzssMLPWnemT3HVM8c5iWtgjNB5DD3ZwXJfhFJWugeg","viewNo":null,"op":"LEDGER_STATUS","txnSeqNo":4}
+ INFO|indy::commands                |                src/commands/mod.rs:107 | PoolCommand command received
+ INFO|indy::commands::pool          |               src/commands/pool.rs:66  | OpenAck handle 1, result Ok(2)
+_indy_loop_callback: Function returned 2
+
+
+
+Finished opening pool
+
+
+
+
+
+
+Closing pool...
+
+
+
+ INFO|indy::commands                |                src/commands/mod.rs:107 | PoolCommand command received
+ INFO|pool_command_executor         |               src/commands/pool.rs:81  | Close command received
+ INFO|pooltest                      |           src/services/pool/mod.rs:792 | Drop started
+ INFO|pooltest                      |           src/services/pool/mod.rs:800 | Drop wait worker
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "pi"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "pi"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "pi"
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:863 | Sending "pi"
+ WARN|indy::services::pool          |           src/services/pool/mod.rs:146 | unhandled msg LedgerStatus(LedgerStatus { txnSeqNo: 4, merkleRoot: "EzzssMLPWnemT3HVM8c5iWtgjNB5DD3ZwXJfhFJWugeg", ledgerId: 0, ppSeqNo: None, viewNo: None })
+ INFO|indy::services::pool          |           src/services/pool/mod.rs:857 | RemoteNode::recv_msg Node1 po
+ WARN|indy::services::pool          |           src/services/pool/mod.rs:146 | unhandled msg Pong
+ INFO|pooltest                      |           src/services/pool/mod.rs:803 | Drop finished
+ INFO|indy::commands                |                src/commands/mod.rs:107 | PoolCommand command received
+ INFO|pool_command_executor         |               src/commands/pool.rs:85  | CloseAck command received
+_indy_loop_callback: Function returned None
+ INFO|indy::commands                |                src/commands/mod.rs:107 | PoolCommand command received
+ INFO|pool_command_executor         |               src/commands/pool.rs:58  | Delete command received
+_indy_loop_callback: Function returned None
+
+
+
+Finished closing pool
+```
+
+The VON Agent has connected to the network!

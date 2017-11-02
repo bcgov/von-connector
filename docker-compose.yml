@@ -2,9 +2,15 @@ version: '3'
 services:
 
   # 
+  # VON Connector
+  # 
+  von_connector:
+    build: .
+    command: 'bash -c ''./scripts/start_von_connector.sh'''
+    
+  # 
   # Client
   # 
-
   client:
     build: .
     command: 'bash -c ''./scripts/start_client.sh'''
@@ -12,7 +18,6 @@ services:
   # 
   # Nodes
   # 
-
   node1:
     build: .
     command: 'bash -c ''./scripts/start_node.sh 1'''
@@ -28,12 +33,4 @@ services:
   node4:
     build: .
     command: 'bash -c ''./scripts/start_node.sh 4'''
-    
-  agent_bootstrapper:
-    # user: root
-    build: .
-    # command: 'bash -c ''./scripts/start_bootstrapper.sh'''
-    command: bash
-    volumes:
-       - .:/home/indy/mnt
     
