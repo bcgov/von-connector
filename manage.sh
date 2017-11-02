@@ -3,7 +3,9 @@
 set -e
 
 SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
-cd $SCRIPT_HOME
+DOCKER_DIRECTORY="docker"
+
+cd "$SCRIPT_HOME/$DOCKER_DIRECTORY"
 
 case "$1" in
   start_nodes)
