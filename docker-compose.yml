@@ -1,0 +1,39 @@
+version: '3'
+services:
+
+  # 
+  # Client
+  # 
+
+  client:
+    build: .
+    command: 'bash -c ''./start_client.sh'''
+
+  # 
+  # Nodes
+  # 
+
+  node1:
+    build: .
+    command: 'bash -c ''./start_node.sh 1'''
+    
+  node2:
+    build: .
+    command: 'bash -c ''./start_node.sh 2'''
+
+  node3:
+    build: .
+    command: 'bash -c ''./start_node.sh 3'''
+    
+  node4:
+    build: .
+    command: 'bash -c ''./start_node.sh 4'''
+    
+  agent_bootstrapper:
+    # user: root
+    build: .
+    # command: 'bash -c ''./start_bootstrapper.sh'''
+    command: bash
+    volumes:
+       - .:/home/indy/mnt
+    
