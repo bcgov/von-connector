@@ -38,8 +38,6 @@ RUN pip3 install -U \
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68DB5E88
 RUN echo "deb https://repo.sovrin.org/deb xenial $indy_stream" >> /etc/apt/sources.list
 
-RUN useradd -ms /bin/bash -u $uid indy
-
 RUN apt-get update -y && apt-get install -y \
     indy-plenum=${indy_plenum_ver} \
     indy-anoncreds=${indy_anoncreds_ver} \
@@ -48,22 +46,27 @@ RUN apt-get update -y && apt-get install -y \
     libindy-crypto=${indy_crypto_ver} \
     vim
 
+# Add indy user
+RUN useradd -ms /bin/bash -u $uid indy
 USER indy
 WORKDIR /home/indy
 
-# Install libindy
+# Install rust toolchain
 RUN curl -o rustup https://sh.rustup.rs
 RUN chmod +x rustup
 RUN ./rustup -y
 
+# Build libindy
 RUN git clone https://github.com/hyperledger/indy-sdk.git
 WORKDIR /home/indy/indy-sdk/libindy
 RUN /home/indy/.cargo/bin/cargo build
 
+# Move libindy to lib path
 USER root
 RUN mv target/debug/libindy.so /usr/lib
 
 USER indy
 WORKDIR /home/indy
 
-ADD --chown=indy:indy . /home/indy
+# Add our startup scripts
+ADD --chown=indy:indy ./scripts /home/indy/scripts
