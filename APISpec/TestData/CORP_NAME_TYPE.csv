@@ -1,0 +1,13 @@
+CORP_NAME_TYP_CD,SHORT_DESC,FULL_DESC
+AS,ASSUMED,Assumed
+CO,CORPORATION,Corporation
+TR,TRANSLATED,Translation Of Company Name
+NR,NAME RES,Name Reservation
+NO,X REF,Cross Reference Name
+NB,NUMBER BC,Number BC Company
+AA,ALBERTA ASSUMED,Alberta Assumed Name
+AN,Alberta Name,Alberta Partner Company Name
+SN,Sask Name,Saskatchewan Partner Company Name
+SA,Sask Assumed,Saskatchewan Partner Assumed Name
+CH,NWPTA change,NWPTA Changed Home Corporation Name
+BP,LLP Partnership,LLP Business Name of Partnership
